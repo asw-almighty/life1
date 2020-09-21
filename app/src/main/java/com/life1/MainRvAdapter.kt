@@ -10,18 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MainRvAdapter(val context: Context, val list: ArrayList<Model>) :
     RecyclerView.Adapter<MainRvAdapter.Holder>() {
-    /** 상위 레이아웃에 넣을 하위 레이아웃을 생성하기**/
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRvAdapter.Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.main_rv_item, parent, false)
-        return Holder(view)
-    }
 
-    /** recyclerview kotlin onitemclick 검색해서 아이템 하나하나에 들어가는거 해주기**/
+    var itemClick: ItemClick? = null
+
+    /** recyclerview kotlin onitemclick 구글 검색해서 아이템 하나하나에 들어가는거 해주기**/
     interface ItemClick{
         fun onClick(view: View, position: Int)
     }
 
-    var itemClick: ItemClick? = null
+
+    /** 상위 레이아웃에 넣을 하위 레이아웃을 생성하기**/
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainRvAdapter.Holder {
+
+        val view = LayoutInflater.from(context).inflate(R.layout.main_rv_item, parent, false)
+        return Holder(view)
+    }
 
     /** view에 데이터를 하나씩 넣어주는 코드 **/
     override fun onBindViewHolder(holder: MainRvAdapter.Holder, position: Int) {
@@ -38,7 +41,7 @@ class MainRvAdapter(val context: Context, val list: ArrayList<Model>) :
         return list.size
     }
 
-
+    /** **/
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val photo = itemView?.findViewById<ImageView>(R.id.image_area)
         val title = itemView?.findViewById<TextView>(R.id.text_area)
